@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONUADɔ Membership and Beneficiary Form</title>
+    <style>
+        /* --- General Styles --- */
+        body {
+            background-color: #e0b456;
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 20px;
+            color: #000;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #e0b456; /* Same as body to match the original document */
+        }
+
+        /* --- Header and Logo --- */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            max-width: 250px;
+            height: auto;
+        }
+
+        .form-title {
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-bottom: 30px;
+        }
+
+        /* --- Form Sections --- */
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #555;
+            padding-bottom: 5px;
+        }
+        
+        /* --- Form Grid Layout --- */
+        .form-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        /* --- Labels and Inputs --- */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #000;
+            background-color: #fff;
+            font-size: 1em;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        /* --- Beneficiary Specifics --- */
+        .beneficiary-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 15px 0;
+            border-bottom: 1px dashed #555;
+        }
+        .beneficiary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .beneficiary-number {
+            font-weight: bold;
+            font-size: 1.1em;
+            padding-top: 25px; /* Align with input boxes */
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding-top: 25px; /* Align with input boxes */
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* --- Submit Button --- */
+        .submit-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .submit-btn {
+            background-color: #4a6da7;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #3b5786;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        
+        <!--
+            FORM SUBMISSION SETUP
+            1. Go to https://formspree.io to create a new form and get your unique Form ID.
+            2. Replace 'YOUR_FORM_ID_HERE' in the action URL below with your actual Form ID.
+            3. The first submission will require you to verify your email. After that, you're all set!
+        -->
+        <form action="https://formspree.io/f/xvgrdrwj" method="POST">
+
+            <div class="logo-container">
+                <!-- Embedded Logo Image -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAACvCAYAAABr19z2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGgAACmISURBVHic7Z1/bFzVled/514qRVIkKYpkSZIsyZJMURJFURQlSZJ6lGQq6qFW6k/U1FOtVFVPpbZGq1arY2tqbR3HdkzbeuyYto7jOG3bsWPHju3YcRzHdpzYduLYceLEdhwnTuIkTuxkEuMkE3snySR2ksn9836/75577tln7733nnvv+31fPj/ec88998yZc86cOee57/O5iYQ0gAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCC-f/p.fGq7gAAAABJRU5ErkJggg==" alt="We Are One Logo" class="logo">
+            </div>
+
+            <h1 class="form-title">ONUAD MEMBERSHIP AND BENEFICIARY FORM</h1>
+
+            <!-- Member Information Section -->
+            <div class="form-section">
+                <h2 class="section-title">MEMBER INFORMATION</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="member_first_name">FIRST NAME:</label>
+                        <input type="text" id="member_first_name" name="Member First Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="member_last_name">LAST NAME:</label>
+                        <input type="text" id="member_last_name" name="Member Last Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="member_other_names">OTHER NAMES:</label>
+                        <input type="text" id="member_other_names" name="Member Other Names">
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="dob_day">DATE OF BIRTH: DAY:</label>
+                        <input type="text" id="dob_day" name="Date of Birth - Day">
+                    </div>
+                    <div class="form-group">
+                        <label for="dob_month">MONTH:</label>
+                        <input type="text" id="dob_month" name="Date of Birth - Month">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information Section -->
+            <div class="form-section">
+                <h2 class="section-title">CONTACT INFORMATION</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="phone">PHONE NO.</label>
+                        <input type="text" id="phone" name="Phone Number">
+                    </div>
+                    <div class="form-group" style="flex: 2;">
+                        <label for="address">ADDRESS:</label>
+                        <textarea id="address" name="Address"></textarea>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="country">COUNTRY:</label>
+                        <input type="text" id="country" name="Country">
+                    </div>
+                    <div class="form-group">
+                        <label for="town">TOWN:</label>
+                        <input type="text" id="town" name="Town">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next of Kin Section -->
+            <div class="form-section">
+                <h2 class="section-title">NEXT OF KIN</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nok_first_name">FIRST NAME:</label>
+                        <input type="text" id="nok_first_name" name="Next of Kin - First Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="nok_last_name">LAST NAME:</label>
+                        <input type="text" id="nok_last_name" name="Next of Kin - Last Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="nok_other_names">OTHER NAMES:</label>
+                        <input type="text" id="nok_other_names" name="Next of Kin - Other Names">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Beneficiaries Section -->
+            <div class="form-section">
+                <h2 class="section-title">BENEFICIARIES</h2>
+                
+                <div class="beneficiary-item">
+                    <span class="beneficiary-number">1.</span>
+                    <div class="form-group">
+                        <label for="b1_first_name">FIRST NAME:</label>
+                        <input type="text" id="b1_first_name" name="Beneficiary 1 - First Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="b1_last_name">LAST NAME:</label>
+                        <input type="text" id="b1_last_name" name="Beneficiary 1 - Last Name">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="b1_father" name="Beneficiary 1 - Relationship" value="Father">
+                            <label for="b1_father">FATHER</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="b1_mother" name="Beneficiary 1 - Relationship" value="Mother">
+                            <label for="b1_mother">MOTHER</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="b1_uncle" name="Beneficiary 1 - Relationship" value="Uncle">
+                            <label for="b1_uncle">UNCLE</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="beneficiary-item">
+                    <span class="beneficiary-number">2.</span>
+                    <div class="form-group">
+                        <label for="b2_first_name">FIRST NAME:</label>
+                        <input type="text" id="b2_first_name" name="Beneficiary 2 - First Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="b2_last_name">LAST NAME:</label>
+                        <input type="text" id="b2_last_name" name="Beneficiary 2 - Last Name">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="b2_father" name="Beneficiary 2 - Relationship" value="Father">
+                            <label for="b2_father">FATHER</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="b2_mother" name="Beneficiary 2 - Relationship" value="Mother">
+                            <label for="b2_mother">MOTHER</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="b2_aunty" name="Beneficiary 2 - Relationship" value="Aunty">
+                            <label for="b2_aunty">AUNTY</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="beneficiary-item">
+                    <span class="beneficiary-number">3.</span>
+                    <div class="form-group">
+                        <label for="b3_first_name">FIRST NAME:</label>
+                        <input type="text" id="b3_first_name" name="Beneficiary 3 - First Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="b3_last_name">LAST NAME:</label>
+                        <input type="text" id="b3_last_name" name="Beneficiary 3 - Last Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="b3_event">MARRIAGE/ANNIVERSARY</label>
+                        <input type="text" id="b3_event" name="Beneficiary 3 - Event">
+                    </div>
+                </div>
+
+                <div class="beneficiary-item">
+                    <span class="beneficiary-number">4.</span>
+                    <div class="form-group">
+                        <label for="b4_first_name">FIRST NAME:</label>
+                        <input type="text" id="b4_first_name" name="Beneficiary 4 - First Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="b4_last_name">LAST NAME:</label>
+                        <input type="text" id="b4_last_name" name="Beneficiary 4 - Last Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="b4_event">EVENT/CEREMONY</label>
+                        <input type="text" id="b4_event" name="Beneficiary 4 - Event">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="submit-container">
+                <button type="submit" class="submit-btn">Submit Form</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
