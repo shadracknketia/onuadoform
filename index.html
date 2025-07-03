@@ -154,18 +154,13 @@
 <body>
 
     <div class="form-container">
-        
-        <!--
-            FORM SUBMISSION SETUP
-            1. Go to https://formspree.io to create a new form and get your unique Form ID.
-            2. Replace 'YOUR_FORM_ID_HERE' in the action URL below with your actual Form ID.
-            3. The first submission will require you to verify your email. After that, you're all set!
-        -->
-        <form action="https://formspree.io/f/xvgrdrwj" method="POST">
+        <!-- FORM SUBMISSION SETUP -->
+        <form id="membershipForm" action="https://formspree.io/f/xvgrdrwj" method="POST">
 
             <div class="logo-container">
                 <!-- Embedded Logo Image -->
                 <img src="https://i.ibb.co/yFCt7RVh/img15.jpg" alt="We Are One Logo" class="logo">
+                <img src="data:image/png;base64,..." alt="We Are One Logo" class="logo">
             </div>
 
             <h1 class="form-title">ONUADɔ MEMBERSHIP AND BENEFICIARY FORM</h1>
@@ -176,11 +171,11 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="member_first_name">FIRST NAME:</label>
-                        <input type="text" id="member_first_name" name="Member First Name">
+                        <input type="text" id="member_first_name" name="Member First Name" required>
                     </div>
                     <div class="form-group">
                         <label for="member_last_name">LAST NAME:</label>
-                        <input type="text" id="member_last_name" name="Member Last Name">
+                        <input type="text" id="member_last_name" name="Member Last Name" required>
                     </div>
                     <div class="form-group">
                         <label for="member_other_names">OTHER NAMES:</label>
@@ -205,7 +200,7 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="phone">PHONE NO.</label>
-                        <input type="text" id="phone" name="Phone Number">
+                        <input type="text" id="phone" name="Phone Number" required>
                     </div>
                     <div class="form-group" style="flex: 2;">
                         <label for="address">ADDRESS:</label>
@@ -339,6 +334,48 @@
 
         </form>
     </div>
+
+    <!-- WhatsApp Redirect Script -->
+    <script>
+    document.getElementById('membershipForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                // Build message text with labels and values dynamically
+                const lines = [];
+                form.querySelectorAll('.form-group').forEach(group => {
+                    const label = group.querySelector('label').innerText.replace(/:$/, '');
+                    const field = group.querySelector('input, textarea');
+                    const value = field ? field.value.trim() : '';
+                    if (value) {
+                        lines.push(label + ': ' + value);
+                    }
+                });
+                const header = `Hello ${data['Member First Name']} ${data['Member Last Name']},`;
+                const footer = `We will be in touch soon!`;
+const message = [header, '', 'Thank you for your submission. Here are your details:', ...lines, '', footer].join("\n");
+
+                // WhatsApp number (replace with your own)
+                const phoneNumber = '+33770912795';
+                const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.location.href = url;
+            } else {
+                alert('Submission failed. Please try again.');
+            }
+        }).catch(err => {
+            console.error(err);
+            alert('An error occurred while submitting.');
+        });
+    });
+    </script>
 
 </body>
 </html>
