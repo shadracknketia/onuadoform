@@ -7,10 +7,10 @@
     <style>
         /* --- General Styles --- */
         body {
-            background-color: #e0b456;
+            background-color: #f3cc5f;
             font-family: 'Times New Roman', Times, serif;
             margin: 0;
-            padding: 20px;
+            padding: 0px 5px 5px 10px;
             color: #000;
         }
 
@@ -18,17 +18,17 @@
             max-width: 800px;
             margin: 20px auto;
             padding: 30px;
-            background-color: #e0b456; /* Same as body to match the original document */
+            background-color: #f3cc5f; /* Same as body to match the original document */
         }
 
         /* --- Header and Logo --- */
         .logo-container {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .logo {
-            max-width: 250px;
+            max-width: 100px;
             height: auto;
         }
 
@@ -37,19 +37,19 @@
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             font-size: 1.3em;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         /* --- Form Sections --- */
         .form-section {
-            margin-bottom: 30px;
+            margin-bottom: 15px;
         }
 
         .section-title {
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             font-size: 1.1em;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border-bottom: 1px solid #555;
             padding-bottom: 5px;
         }
@@ -111,9 +111,10 @@
 
         .checkbox-group {
             display: flex;
+            flex-wrap: wrap;      /* <-- allow wrapping */
             gap: 15px;
             align-items: center;
-            padding-top: 25px; /* Align with input boxes */
+            padding-top: 25px;
         }
 
         .checkbox-item {
@@ -148,17 +149,22 @@
         .submit-btn:hover {
             background-color: #3b5786;
         }
-
     </style>
+    <!-- 1) html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- 2) jsPDF UMD bundle -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 <body>
 
-    <div class="form-container">
+    <div class="form-container" id="formContent">
         <!-- FORM SUBMISSION SETUP -->
         <form id="membershipForm" action="https://formspree.io/f/xvgrdrwj" method="POST">
 
             <div class="logo-container">
-                <img src="data:image/png;base64,..." alt="We Are One Logo" class="logo">
+                <!-- Embedded Logo Image -->
+                <img src="https://i.ibb.co/yFCt7RVh/img15.jpg" alt="We Are One Logo" class="logo">
             </div>
 
             <h1 class="form-title">ONUADɔ MEMBERSHIP AND BENEFICIARY FORM</h1>
@@ -182,7 +188,7 @@
                 </div>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="dob_day">DATE OF BIRTH: DAY:</label>
+                        <label for="dob_day"><u>DATE OF BIRTH</u> <br>DAY:</br></label>
                         <input type="text" id="dob_day" name="Date of Birth - Day">
                     </div>
                     <div class="form-group">
@@ -334,46 +340,57 @@
     </div>
 
     <!-- WhatsApp Redirect Script -->
-    <script>
-    document.getElementById('membershipForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
 
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        }).then(response => {
-            if (response.ok) {
-                // Build message text with labels and values dynamically
-                const lines = [];
-                form.querySelectorAll('.form-group').forEach(group => {
-                    const label = group.querySelector('label').innerText.replace(/:$/, '');
-                    const field = group.querySelector('input, textarea');
-                    const value = field ? field.value.trim() : '';
-                    if (value) {
-                        lines.push(label + ': ' + value);
-                    }
-                });
-                const header = `Hello ${data['Member First Name']} ${data['Member Last Name']},`;
-                const footer = `We will be in touch soon!`;
-const message = [header, '', 'Thank you for your submission. Here are your details:', ...lines, '', footer].join("\n");
+<script>
+window.addEventListener('load', () => {
+  const { jsPDF } = window.jspdf;
+  const form      = document.getElementById('membershipForm');
+  const container = document.getElementById('formContent');
 
-                // WhatsApp number (replace with your own)
-                const phoneNumber = '+233550782685';
-                const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-                window.location.href = url;
-            } else {
-                alert('Submission failed. Please try again.');
-            }
-        }).catch(err => {
-            console.error(err);
-            alert('An error occurred while submitting.');
-        });
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // 1) submit to Formspree
+    const formData = new FormData(form);
+    const data     = Object.fromEntries(formData.entries());
+    const resp     = await fetch(form.action, {
+      method: 'POST',
+      body:   formData,
+      headers:{ 'Accept': 'application/json' }
     });
-    </script>
+    if (!resp.ok) {
+      alert('Submission failed. Please try again.');
+      return;
+    }
+
+    // 2) snapshot the form container
+    const canvas = await html2canvas(container, {
+      scale:   2,
+      useCORS: true,
+      scrollY: -window.scrollY
+    });
+
+    // 3) create PDF sized to container, but scaled to fit A4 width
+    const imgData   = canvas.toDataURL('image/png', 1.0);
+    const pdf       = new jsPDF({ unit: 'px', format: 'a4', orientation: 'portrait' });
+    const pageW     = pdf.internal.pageSize.getWidth();
+    const scale     = pageW / canvas.width;
+    const imgH      = canvas.height * scale;
+
+    pdf.addImage(imgData, 'PNG', 0, 0, pageW, imgH);
+
+    // 4) save PDF
+    const filename = `ONUAD_Membership_${data['Member First Name']}_${data['Member Last Name']}.pdf`;
+    pdf.save(filename);
+
+    // 5) open WhatsApp share
+    const msg   = `Hello ${data['Member First Name']} ${data['Member Last Name']},%0A%0A` +
+                  `Your form has been submitted successfully. Here’s your PDF.`;
+    const phone = '233550782685';
+    window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+  });
+});
+</script>
 
 </body>
 </html>
