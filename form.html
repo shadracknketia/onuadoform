@@ -12,7 +12,7 @@
     body { background-color: #f3cc5f; font-family: 'Times New Roman', serif; margin: 0; padding: 20px; color: #000; font-size: 14px; }
     .form-container { max-width: 800px; margin: 20px auto; padding: 20px; background-color: #f3cc5f; }
     .logo-container { text-align: center; margin-bottom: 15px; }
-    .logo { max-width: 160px; height: auto; }
+    .logo { max-width: 120px; height: auto; }
     .form-title { text-align: center; font-family: Arial, sans-serif; font-weight: bold; font-size: 1.2em; margin-bottom: 20px; }
     .form-section { margin-bottom: 20px; }
     .section-title { font-family: Arial, sans-serif; font-weight: bold; font-size: 1em; margin-bottom: 10px; border-bottom: 1px solid #555; padding-bottom: 4px; }
@@ -149,25 +149,25 @@
         <div class="beneficiary-item">
             <span class="beneficiary-number">2.</span>
             <div class="form-group">
-                <label for="b2_first_name">FIRST NAME:</label>
+                <label for="b2_first_name">First Name:</label>
                 <input type="text" id="b2_first_name" name="Beneficiary 2 - First Name">
             </div>
             <div class="form-group">
-                <label for="b2_last_name">LAST NAME:</label>
+                <label for="b2_last_name">Last Name:</label>
                 <input type="text" id="b2_last_name" name="Beneficiary 2 - Last Name">
             </div>
             <div class="form-group checkbox-group">
                 <div class="checkbox-item">
-                    <input type="checkbox" id="b2_father" name="Beneficiary 2 - Relationship" value="Father">
-                    <label for="b2_father">FATHER</label>
+                    <input type="radio" id="b2_father" name="Beneficiary 2 - Relationship" value="Father">
+                    <label for="b2_father">Father</label>
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="b2_mother" name="Beneficiary 2 - Relationship" value="Mother">
-                    <label for="b2_mother">MOTHER</label>
+                    <input type="radio" id="b2_mother" name="Beneficiary 2 - Relationship" value="Mother">
+                    <label for="b2_mother">Mother</label>
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="b2_aunty" name="Beneficiary 2 - Relationship" value="Aunty">
-                    <label for="b2_aunty">AUNTY</label>
+                    <input type="radio" id="b2_aunty" name="Beneficiary 2 - Relationship" value="Aunty">
+                    <label for="b2_aunty">Aunty</label>
                 </div>
             </div>
         </div>
@@ -175,15 +175,15 @@
         <div class="beneficiary-item">
             <span class="beneficiary-number">3.</span>
             <div class="form-group">
-                <label for="b3_first_name">FIRST NAME:</label>
+                <label for="b3_first_name">First Name:</label>
                 <input type="text" id="b3_first_name" name="Beneficiary 3 - First Name">
             </div>
             <div class="form-group">
-                <label for="b3_last_name">LAST NAME:</label>
+                <label for="b3_last_name">Last Name:</label>
                 <input type="text" id="b3_last_name" name="Beneficiary 3 - Last Name">
             </div>
             <div class="form-group">
-                <label for="b3_event">MARRIAGE/ANNIVERSARY</label>
+                <label for="b3_event">Marriage/Anniversary</label>
                 <input type="text" id="b3_event" name="Beneficiary 3 - Event">
             </div>
         </div>
@@ -191,15 +191,15 @@
         <div class="beneficiary-item">
             <span class="beneficiary-number">4.</span>
             <div class="form-group">
-                <label for="b4_first_name">FIRST NAME:</label>
+                <label for="b4_first_name">First Name:</label>
                 <input type="text" id="b4_first_name" name="Beneficiary 4 - First Name">
             </div>
             <div class="form-group">
-                <label for="b4_last_name">LAST NAME:</label>
+                <label for="b4_last_name">Last Name:</label>
                 <input type="text" id="b4_last_name" name="Beneficiary 4 - Last Name">
             </div>
             <div class="form-group">
-                <label for="b4_event">EVENT/CEREMONY</label>
+                <label for="b4_event">Event/Ceremony</label>
                 <input type="text" id="b4_event" name="Beneficiary 4 - Event">
             </div>
         </div>
@@ -220,26 +220,43 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // Hide the submit button during capture
     const submitContainer = document.querySelector('.submit-container');
     if (submitContainer) submitContainer.style.display = 'none';
 
-    // Capture container as canvas
-    const canvas = await html2canvas(container, { scale: 1, useCORS: true, scrollY: -window.scrollY });
+    document.querySelectorAll('.checkbox-group').forEach(group => {
+    group.querySelectorAll('.checkbox-item').forEach(item => {
+        const input = item.querySelector('input[type="radio"]');
+        if (!input.checked) {
+        item.style.display = 'none';
+        }
+    });
+    });
+
+    // Render form to canvas at high resolution
+    const canvas = await html2canvas(container, { scale: 2, useCORS: true, scrollY: -window.scrollY });
     const imgData = canvas.toDataURL('image/png', 1.0);
 
-    // Create PDF matching container dimensions (px)
+    // Create single-page PDF matching canvas dimensions in px
     const pdf = new jsPDF({ unit: 'px', format: [canvas.width, canvas.height], orientation: 'portrait' });
     pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
 
+    // Save PDF
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     const filename = `ONUAD_Membership_${data['Member First Name']}_${data['Member Last Name']}.pdf`;
     pdf.save(filename);
 
+    
+    const message = `Hello ${data['Member First Name']} ${data['Member Last Name']},%0A%0AYour PDF is ready. Please check your download folder and attach it here.`;
+    const phoneNumber = '233550782685';
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+
     // Restore submit button
     if (submitContainer) submitContainer.style.display = '';
   });
 });
+
   </script>
 </body>
 </html>
