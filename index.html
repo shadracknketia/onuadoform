@@ -223,20 +223,43 @@
     const submitContainer = document.querySelector('.submit-container');
     if (submitContainer) submitContainer.style.display = 'none';
 
-    // Capture container as canvas
-    const canvas = await html2canvas(container, { scale: 1, useCORS: true, scrollY: -window.scrollY });
+    // Capture container at high resolution
+    const canvas = await html2canvas(container, { scale: 2, useCORS: true, scrollY: -window.scrollY });
     const imgData = canvas.toDataURL('image/png', 1.0);
 
-    // Create PDF matching container dimensions (px)
-    const pdf = new jsPDF({ unit: 'px', format: [canvas.width, canvas.height], orientation: 'portrait' });
-    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+    // Create A4 PDF and fit width
+    const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    // Calculate image dimensions in mm
+    const pxToMm = 0.264583;
+    const imgWidthMm = canvas.width * pxToMm;
+    const imgHeightMm = canvas.height * pxToMm;
+
+    // Scale to fit page width
+    const scale = pageWidth / imgWidthMm;
+    const scaledHeight = imgHeightMm * scale;
+
+    if (scaledHeight <= pageHeight) {
+      pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, scaledHeight);
+    } else {
+      // Split into pages
+      let position = 0;
+      let remainingHeight = imgHeightMm;
+      while (remainingHeight > 0) {
+        pdf.addImage(imgData, 'PNG', 0, -position * pxToMm * scale, pageWidth, imgHeightMm * scale);
+        remainingHeight -= pageHeight;
+        position += pageHeight / (pxToMm * scale);
+        if (remainingHeight > 0) pdf.addPage();
+      }
+    }
 
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     const filename = `ONUAD_Membership_${data['Member First Name']}_${data['Member Last Name']}.pdf`;
     pdf.save(filename);
 
-    // Restore submit button
     if (submitContainer) submitContainer.style.display = '';
   });
 });
