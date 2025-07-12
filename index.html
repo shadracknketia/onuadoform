@@ -247,10 +247,9 @@
     const filename = `ONUAD_Membership_${data['Member First Name']}_${data['Member Last Name']}.pdf`;
     pdf.save(filename);
 
-    
-    const message = `Hello ${data['Member First Name']} ${data['Member Last Name']},%0A%0AYour PDF is ready. Please check your download folder and attach it here.`;
-    const phoneNumber = '233550782685';
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+    // const message = `Hello ${data['Member First Name']} ${data['Member Last Name']},%0A%0AYour PDF is ready. Please check your download folder and attach it here.`;
+    // const phoneNumber = '233550782685';
+    // window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 
     // Restore submit button
     if (submitContainer) submitContainer.style.display = '';
