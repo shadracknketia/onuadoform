@@ -223,11 +223,11 @@
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    // Hide submit button before generating PDF
+    // Hide submit button and add pdf-export class before generating PDF
     const submitContainer = document.querySelector('.submit-container');
     if (submitContainer) submitContainer.style.display = 'none';
+    container.classList.add('pdf-export');
 
-    // Capture with lower resolution for smaller PDF size
     const canvas = await html2canvas(container, { scale: 1, useCORS: true, scrollY: -window.scrollY });
     const imgData = canvas.toDataURL('image/jpeg', 0.8);
 
@@ -250,6 +250,10 @@
 
     const filename = `ONUAD_Membership_${data['Member First Name']}_${data['Member Last Name']}.pdf`;
     pdf.save(filename);
+
+    // Restore submit button and remove pdf-export class after PDF generation
+    if (submitContainer) submitContainer.style.display = '';
+    container.classList.remove('pdf-export');
 
     // Restore submit button after PDF generation
     if (submitContainer) submitContainer.style.display = '';
